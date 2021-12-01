@@ -1,0 +1,48 @@
+{
+  "name": "@wellvillage/api-server-mockery",
+  "description": "A server used to mock out 3rd party API servers",
+  "version": "1.0.0-rc.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jinchunwei/api-server-mockery"
+  },
+  "bugs": {
+    "url": "https://github.com/jinchunwei/api-server-mockery/issues"
+  },
+  "homepage": "https://github.com/jinchunwei/api-server-mockery",
+  "main": "src/bootstrap.js",
+  "engines": {
+    "node": "^14.17.0"
+  },
+  "scripts": {
+    "image": "docker build . --tag %npm_package_name%:%npm_package_version%",
+    "serve": "nodemon -w src -i *.test.js -i *.spec.js -e js",
+    "pretest": "eslint --ext .js --max-warnings 0 .",
+    "test": "jest --ci --silent --noStackTrace --bail=1"
+  },
+  "dependencies": {
+    "got": "^11.8.2",
+    "@jitsusama/config-env-js": "^1.0.0-rc.4",
+    "@jitsusama/http-server-js": "^1.0.0-rc.3",
+    "@jitsusama/logging-js": "^1.0.0-rc.10",
+    "lightship": "^6.7.2",
+    "nock": "^13.2.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.16.0",
+    "@types/jest": "^27.0.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-unicorn": "^37.0.1",
+    "jest": "^27.3.1",
+    "jest-extended": "^1.1.0",
+    "nodemon": "^2.0.14",
+    "prettier": "^2.4.1"
+  }
+}
