@@ -1,4 +1,4 @@
-# @JinchunWei/api-server-mockery
+# @wellvillage/api-server-mockery
 
 ![last commit badge](https://img.shields.io/github/last-commit/JinchunWei/api-server-mockery)
 ![package.json version badge](https://img.shields.io/github/package-json/v/JinchunWei/api-server-mockery)
