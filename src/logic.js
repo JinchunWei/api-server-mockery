@@ -25,12 +25,18 @@ const handleRequest = async (request) => {
  * Setup mocking endpoint.
  */
 const mockEndpoint = (request) => {
-  const { path, method, headers, searchParams, body, reply } = request;
+  const { path, method, headers, times, persist, searchParams, body, reply } =
+    request;
   const { responseCode, headers: responseHeaders, body: responseBody } = reply;
 
-  const interceptor = nock(mockBaseUri)[method](path, body).query(searchParams);
-  for (const [key, value] of Object.entries(headers))
-    interceptor.matchHeader(key, value);
+  const scope = nock(mockBaseUri);
+  if (persist) scope.persist();
+  const interceptor = scope[method](path, body);
+  if (searchParams) interceptor.query(searchParams);
+  if (times) interceptor.times(times);
+  if (headers)
+    for (const [key, value] of Object.entries(headers))
+      interceptor.matchHeader(key, value);
   interceptor.reply(responseCode, responseBody, responseHeaders);
 
   log.info(

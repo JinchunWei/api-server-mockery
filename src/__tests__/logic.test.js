@@ -94,6 +94,47 @@ test.each([
   }
 );
 
+test.each([undefined, 0, 1, 2])(
+  "mock endpoint for specified times",
+  async (times) => {
+    // When
+    logic.configure({ baseUri });
+    logic.mockEndpoint({
+      path: "/target",
+      method: "get",
+      times,
+      reply: { responseCode: 204 },
+    });
+
+    // Then
+    await http.get("target");
+    if (times > 1) {
+      for (let index = 1; index < times; index++) await http.get("target");
+    }
+    const promise = http.get("target");
+
+    await expect(promise).toReject();
+  }
+);
+
+test("mock endpoint permanently", async () => {
+  // When
+  logic.configure({ baseUri });
+  logic.mockEndpoint({
+    path: "/target",
+    method: "get",
+    persist: true,
+    reply: { responseCode: 204 },
+  });
+
+  // Then
+  await http.get("target");
+  await http.get("target");
+  const promise = http.get("target");
+
+  await expect(promise).toResolve();
+});
+
 test.each([
   [{ a: "1" }, { b: 2 }],
   [{ c: { d: "4" } }, { e: ["abc"] }],
